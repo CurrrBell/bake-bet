@@ -1,0 +1,22 @@
+stages:
+  - test
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+test:
+  image: node:22
+  stage: test
+  before_script:
+    - npm install -g pnpm
+    - pnpm install
+  script:
+    - pnpm -r test --coverage
+  artifacts:
+    reports:
+      junit: coverage/junit.xml
+    paths:
+      - coverage/
+    expire_in: 1 week
