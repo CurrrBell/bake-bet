@@ -16,7 +16,7 @@ test:
     - pnpm -r test --coverage
   artifacts:
     reports:
-      junit: coverage/junit.xml
+      junit: coverage/web-junit.xml
     paths:
       - coverage/
     expire_in: 1 week
