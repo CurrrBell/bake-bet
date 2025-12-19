@@ -37,13 +37,13 @@ const username = ref('');
 const { login } = useUserStore();
 
 function loginUser() {
-    login(`user_${Date.now}`, username.value, 1000)
+    login(`user_${Date.now()}`, username.value, 1000)
         .then(() => router.push({ name: 'Home' }));
     ;
 }
 
 function continueAsGuest() {
-    login(`guest_${Date.now}`, 'Guest', 1000)
+    login(`guest_${Date.now()}`, 'Guest', 1000)
         .then(() => router.push({ name: 'Home' }));
 }
 
