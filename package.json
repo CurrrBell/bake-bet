@@ -10,5 +10,9 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "packageManager": "pnpm@10.26.0"
+    "packageManager": "pnpm@10.26.0",
+    "dependencies": {
+        "@mdi/font": "^7.4.47",
+        "vuetify": "^3.11.4"
+    }
 }
