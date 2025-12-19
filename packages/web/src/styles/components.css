@@ -4,7 +4,7 @@
         color: #fff;
         border: none;
         border-radius: var(--radius-md);
-        padding: 0.75rem 1rem;
+        padding: 0.5rem 1rem;
         font-weight: 600;
         cursor: pointer;
         transition: background-color var(--transition-hover);
@@ -39,6 +39,10 @@
         opacity: 0.65;
     }
 
+                button:disabled:hover,
+                button:disabled:active {
+                    background-color: var(--color-primary-disabled);
+                }
     .card {
         background: var(--color-surface);
         border-radius: var(--radius-md);

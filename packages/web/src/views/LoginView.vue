@@ -1,8 +1,11 @@
 <template>
     <div class="login">
         <div class="card">
-            <h1>BakeBet</h1>
-            <h2>Bet fake currency on The Great British Bake Off</h2>
+            <header>
+                <h1>BakeBet</h1>
+                <h3>Bet fake currency on The Great British Bake Off</h3>
+            </header>
+
             <form @submit.prevent="loginUser">
                 <input v-model="username"
                        label="User Name"
