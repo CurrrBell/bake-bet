@@ -1,7 +1,7 @@
 <template>
     <main-nav v-if="isLoggedIn">nav</main-nav>
     <main>
-        <RouterView />
+        <router-view />
     </main>
 </template>
 <script setup lang="ts">

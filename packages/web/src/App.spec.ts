@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import App from './App.vue';
 import { useUserStore } from './stores/user';
+import MainNav from './components/MainNav.vue';
 
 describe('App.vue nav visibility', () => {
     let pinia: ReturnType<typeof createPinia>;
@@ -30,9 +31,10 @@ describe('App.vue nav visibility', () => {
 
         const wrapper = mount(App, {
             global: {
-                plugins: [pinia]
+                plugins: [pinia],
+                components: { MainNav },
+                stubs: { 'router-view': true }
             },
-            shallow: true
         });
 
         expect(wrapper.find('nav').exists()).toBe(true);
