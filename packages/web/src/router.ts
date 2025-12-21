@@ -6,7 +6,7 @@ import HomeView from './views/HomeView.vue';
 import BetView from './views/BetView.vue';
 import LeaderboardView from './views/LeaderboardView.vue';
 import ProfileView from './views/ProfileView.vue';
-import BetListView from './views/BetListView.vue';
+import MarketListView from './views/MarketListView.vue';
 
 export const routes = [
     {
@@ -33,9 +33,9 @@ export const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/bets',
-        name: 'BetList',
-        component: BetListView,
+        path: '/markets',
+        name: 'MarketList',
+        component: MarketListView,
         meta: { requiresAuth: true }
     },
     {
