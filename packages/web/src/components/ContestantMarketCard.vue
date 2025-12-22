@@ -13,6 +13,7 @@
                 </p>
 
               <div class="market-card__odds">
+                   <bet-button :market-id="market.id" />
                     <span class="market-card__odds-value">
                         {{ fractionalOdds(market.decimalOdds) }}
                     </span>
@@ -22,6 +23,7 @@
     </article>
 </template>
 <script setup lang="ts">
+import BetButton from './BetButton.vue';
 import { type Market } from '../models/Market';
 import MarketStatus from './MarketStatus.vue';
 import { fractionalOdds } from '../helpers/OddsFormats';
@@ -72,7 +74,18 @@ defineProps<{
 }
 
 .market-card__odds {
-    text-align: right;
+    display: flex;
+        gap: var(--space-sm);
+        align-items: center;
+    }
+    
+    .bet-button {
+        visibility: hidden;
+        transition: visibility var(--transition-hover)
+    }
+    
+    .contestant-market:hover .bet-button {
+        visibility: visible;
 }
 
 .market-card__odds-label {
