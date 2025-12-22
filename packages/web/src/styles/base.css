@@ -22,8 +22,6 @@
                 var(--color-primary) 40%,
                 var(--color-surface) 60%);
 
-
-
         --color-secondary: #f472b6;
         --color-secondary-hover: #ec4899;
         --color-secondary-soft: rgba(244, 114, 182, 0.15);
