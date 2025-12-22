@@ -5,13 +5,16 @@
     </button>
 </template>
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-
-const router = useRouter()
+import BetSlipView from '../views/BetSlipView.vue';
+import { useIsModalOpen } from '../composables/isModalOpen';
 
 const { marketId } = defineProps<{ marketId: string }>();
 
+const { isModalOpen } = useIsModalOpen();
+
 function openBetSlip() {
-    router.push(`/markets/${marketId}/bet`);
+    if (isModalOpen.value) return;
+
+    isModalOpen.value = true;
 }
 </script>
