@@ -6,8 +6,16 @@ const weeklyMarkets: Market[] = contestants.flatMap((contestant, index) => {
 
     return [
         {
+            id: `w1-${contestant.id}-advance`,
+            name: 'Advances',
+            type: 'weekly',
+            status: 'open',
+            contestant,
+            decimalOdds: Number((base + 0.5).toFixed(2)),
+        },
+        {
             id: `w1-${contestant.id}-star`,
-            name: 'Star Baker – Week 1',
+            name: 'Star Baker',
             type: 'weekly',
             status: 'open',
             contestant,
@@ -15,7 +23,7 @@ const weeklyMarkets: Market[] = contestants.flatMap((contestant, index) => {
         },
         {
             id: `w1-${contestant.id}-elim`,
-            name: 'Eliminated – Week 1',
+            name: 'Eliminated',
             type: 'weekly',
             status: 'open',
             contestant,
@@ -23,7 +31,7 @@ const weeklyMarkets: Market[] = contestants.flatMap((contestant, index) => {
         },
         {
             id: `w1-${contestant.id}-handshake`,
-            name: 'Hollywood Handshake – Week 1',
+            name: 'Handshake',
             type: 'weekly',
             status: 'open',
             contestant,
@@ -31,7 +39,7 @@ const weeklyMarkets: Market[] = contestants.flatMap((contestant, index) => {
         },
         {
             id: `w1-${contestant.id}-technical`,
-            name: 'Wins Technical – Week 1',
+            name: 'Wins Technical',
             type: 'weekly',
             status: 'open',
             contestant,

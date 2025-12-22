@@ -48,9 +48,13 @@ function marketsForContestant(contestant: Contestant) {
 
 </script>
 <style scoped>
+header {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
 .bet-list {
     margin: var(--space-lg);
-
 }
 
 .bets-container {

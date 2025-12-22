@@ -1,25 +1,18 @@
 <template>
     <article class="market-card"
-             :class="`market-card--${market.status}`"
-             tabindex="0">
+            :class="`market-card--${market.status}`">
         <header class="market-card__header">
             <h3 class="market-card__title">
-                {{ market.name }}
-            </h3>
-
-            <span class="market-card__type">
-                {{ market.type }}
-            </span>
+               {{ market.contestant?.name ?? market.name }}
+           </h3>
         </header>
 
         <div class="market-card__body">
-            <p v-if="market.contestant"
-               class="market-card__selection">
-                {{ market.contestant.name }}
+           <p class="market-card__selection">
+                {{ market.contestant?.name }}
             </p>
 
-            <div class="market-card__odds">
-                <span class="market-card__odds-label">Odds</span>
+          <div class="market-card__odds">
                 <span class="market-card__odds-value">
                     {{ formatOdds(market.decimalOdds) }}
                 </span>
@@ -27,12 +20,9 @@
         </div>
 
         <footer class="market-card__footer">
-            <span class="market-card__status">
-                {{ market.status }}
-            </span>
+           <market-status :status="market.status" />
 
-            <button v-if="market.status === 'open'"
-                    class="button button--primary">
+          <button v-if="market.status === 'open'">
                 Bet
             </button>
         </footer>
@@ -40,6 +30,7 @@
 </template>
 <script setup lang="ts">
 import { type Market } from '../models/Market';
+import MarketStatus from './MarketStatus.vue';
 
 defineProps<{
     market: Market
@@ -68,19 +59,11 @@ function formatOdds(odds: number): string {
     box-shadow: var(--shadow-sm);
     cursor: pointer;
 
-    transition:
-        background-color var(--transition-hover),
-        box-shadow var(--transition-hover),
-        transform var(--transition-active);
+    transition: background-color var(--transition-hover);
 }
 
 .market-card:hover {
     background-color: var(--color-primary-soft);
-    box-shadow: var(--shadow-md);
-}
-
-.market-card:active {
-    transform: translateY(1px);
 }
 
 .market-card__header {
@@ -95,12 +78,6 @@ function formatOdds(odds: number): string {
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
-}
-
-.market-card__type {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
 }
 
 .market-card__body {
@@ -136,30 +113,6 @@ function formatOdds(odds: number): string {
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
-}
-
-.market-card__status {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
-}
-
-.market-card--open .market-card__status {
-    color: var(--color-success);
-}
-
-.market-card--closed {
-    opacity: 0.75;
-}
-
-.market-card--settled {
-    background-color: var(--color-bg);
-}
-
-.market-card--void {
-    opacity: 0.5;
-    text-decoration: line-through;
 }
 
 </style>
