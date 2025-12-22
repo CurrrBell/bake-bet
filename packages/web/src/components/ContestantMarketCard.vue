@@ -56,12 +56,12 @@ defineProps<{
 
 .contestant-market {
     display: flex;
+    align-items: center;
     padding: var(--space-md);
     justify-content: space-between;
     background-color: transparent;
     border-radius: var(--radius-md);
     transition: background-color var(--transition-hover);
-    cursor: pointer;
 }
 
 .contestant-market:hover {
@@ -75,17 +75,19 @@ defineProps<{
 
 .market-card__odds {
     display: flex;
-        gap: var(--space-sm);
+    gap: var(--space-sm);
         align-items: center;
     }
-    
+
     .bet-button {
-        visibility: hidden;
-        transition: visibility var(--transition-hover)
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-hover);
     }
-    
+
     .contestant-market:hover .bet-button {
-        visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 .market-card__odds-label {

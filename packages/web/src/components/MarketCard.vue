@@ -1,18 +1,18 @@
 <template>
     <article class="market-card"
-            :class="`market-card--${market.status}`">
+             :class="`market-card--${market.status}`">
         <header class="market-card__header">
             <h3 class="market-card__title">
-               {{ market.name }}
-           </h3>
+                {{ market.name }}
+            </h3>
         </header>
 
         <div class="market-card__body">
-           <p class="market-card__selection">
+            <p class="market-card__selection">
                 {{ market.contestant?.name }}
             </p>
 
-          <div class="market-card__odds">
+            <div class="market-card__odds">
                 <span class="market-card__odds-value">
                     {{ formatOdds(market.decimalOdds) }}
                 </span>
@@ -20,9 +20,9 @@
         </div>
 
         <footer class="market-card__footer">
-           <market-status :status="market.status" />
+            <market-status :status="market.status" />
 
-          <bet-button v-if="market.status === 'open'"
+            <bet-button v-if="market.status === 'open'"
                         :market-id="market.id" />
         </footer>
     </article>
@@ -114,5 +114,4 @@ function formatOdds(odds: number): string {
     align-items: center;
     margin-top: auto;
 }
-
 </style>
