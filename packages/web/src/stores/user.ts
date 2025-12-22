@@ -1,18 +1,19 @@
+import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 export const useUserStore = defineStore('user', () => {
-    const id = ref('');
-    const name = ref('');
-    const balance = ref(0);
+    const userId = useStorage('userId', '');
+    const userName = useStorage('userName', '');
+    const balance = useStorage('balance', 0);
 
-    const isLoggedIn = computed(() => !!id.value);
+    const isLoggedIn = computed(() => !!userId.value);
 
     async function login(newId: string, newName: string, newBalance: number) {
         Promise.resolve()
             .then(() => {
-                id.value = newId;
-                name.value = newName;
+                userId.value = newId;
+                userName.value = newName;
                 balance.value = newBalance;
             });
     }
@@ -20,8 +21,8 @@ export const useUserStore = defineStore('user', () => {
     async function logout() {
         Promise.resolve()
             .then(() => {
-                id.value = '';
-                name.value = '';
+                userId.value = '';
+                userName.value = '';
                 balance.value = 0;
             });
     }
