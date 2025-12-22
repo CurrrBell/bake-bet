@@ -3,7 +3,7 @@ import { useUserStore } from './stores/user';
 
 import LoginView from './views/LoginView.vue';
 import HomeView from './views/HomeView.vue';
-import BetView from './views/BetView.vue';
+import BetSlipView from './views/BetSlipView.vue';
 import LeaderboardView from './views/LeaderboardView.vue';
 import ProfileView from './views/ProfileView.vue';
 import MarketListView from './views/MarketListView.vue';
@@ -39,10 +39,11 @@ export const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/bets/:contestantId',
-        name: 'Bet',
-        component: BetView,
-        meta: { requiresAuth: true }
+        path: '/markets/:marketId/bet',
+        name: 'BetSlip',
+        component: BetSlipView,
+        meta: { requiresAuth: true },
+        props: true,
     },
     {
         path: '/leaderboard',

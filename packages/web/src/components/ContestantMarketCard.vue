@@ -5,17 +5,19 @@
         </header>
 
         <div class="market-card__body">
-                <div class="contestant-market" v-for="market in markets">
-                    <p class="market-card__selection">
-                        {{ market.name }}
-                    </p>
+           <div class="contestant-market"
+                 v-for="market in markets">
 
-                    <div class="market-card__odds">
-                        <span class="market-card__odds-value">
-                            {{ fractionalOdds(market.decimalOdds) }}
-                        </span>
-                    </div>
+                <p class="market-card__selection">
+                    {{ market.name }}
+                </p>
+
+              <div class="market-card__odds">
+                    <span class="market-card__odds-value">
+                        {{ fractionalOdds(market.decimalOdds) }}
+                    </span>
                 </div>
+            </div>
         </div>
     </article>
 </template>
@@ -24,13 +26,10 @@ import { type Market } from '../models/Market';
 import MarketStatus from './MarketStatus.vue';
 import { fractionalOdds } from '../helpers/OddsFormats';
 
-
 defineProps<{
     contestantName: string,
     markets: Market[]
 }>();
-
-
 
 </script>
 <style scoped>

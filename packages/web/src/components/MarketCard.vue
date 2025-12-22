@@ -3,7 +3,7 @@
             :class="`market-card--${market.status}`">
         <header class="market-card__header">
             <h3 class="market-card__title">
-               {{ market.contestant?.name ?? market.name }}
+               {{ market.name }}
            </h3>
         </header>
 
@@ -22,15 +22,15 @@
         <footer class="market-card__footer">
            <market-status :status="market.status" />
 
-          <button v-if="market.status === 'open'">
-                Bet
-            </button>
+          <bet-button v-if="market.status === 'open'"
+                        :market-id="market.id" />
         </footer>
     </article>
 </template>
 <script setup lang="ts">
 import { type Market } from '../models/Market';
 import MarketStatus from './MarketStatus.vue';
+import BetButton from './BetButton.vue';
 
 defineProps<{
     market: Market
