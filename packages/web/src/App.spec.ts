@@ -1,13 +1,18 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import App from './App.vue';
 import { useUserStore } from './stores/user';
 import MainNav from './components/MainNav.vue';
+import { useRouter, useRoute } from 'vue-router';
 
 describe('App.vue nav visibility', () => {
     let pinia: ReturnType<typeof createPinia>;
     let userStore: ReturnType<typeof useUserStore>;
+    vi.mock('vue-router', () => ({
+        useRoute: vi.fn(),
+        useRouter: vi.fn(),
+    }));
 
     beforeEach(() => {
         pinia = createPinia();
@@ -16,11 +21,13 @@ describe('App.vue nav visibility', () => {
     });
 
     it('hides the nav when user is not logged in', () => {
+        useRoute.mockImplementationOnce();
         const wrapper = mount(App, {
             global: {
-                plugins: [pinia]
+                plugins: [pinia],
+                components: { MainNav },
+                stubs: { 'router-view': true },
             },
-            shallow: true
         });
 
         expect(wrapper.find('nav').exists()).toBe(false);
