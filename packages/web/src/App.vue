@@ -1,26 +1,33 @@
 <template>
     <main-nav v-if="isLoggedIn">nav</main-nav>
     <main>
-        <template v-if="backgroundRoute">
+       <router-view />
 
-        </template>
-
-        <router-view v-else />
+      <div v-if="showModal"
+             class="modal-overlay"
+             @click.self="closeModal">
+            <router-view name="modal" />
+        </div>
     </main>
 </template>
 <script setup lang="ts">
 import MainNav from './components/MainNav.vue';
-import { RouterView, useRoute } from 'vue-router';
+import { RouterView, useRoute, useRouter } from 'vue-router';
 
 import { useUserStore } from './stores/user';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
 const route = useRoute();
+const router = useRouter();
 
-const backgroundRoute = computed(() => route.meta?.background ?? null);
+const showModal = computed(() => route.meta?.modal === true);
 
 const { isLoggedIn } = storeToRefs(useUserStore());
+
+function closeModal() {
+    router.back();
+}
 </script>
 <style scoped>
 nav {
@@ -29,5 +36,14 @@ nav {
 
 main {
     grid-area: main;
+}
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 </style>

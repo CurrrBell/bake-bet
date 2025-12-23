@@ -30,7 +30,6 @@ import type { MarketType } from '../models/Market';
 import { computed, ref } from 'vue';
 import { useContestantStore } from '../stores/contestant';
 import type { Contestant } from '../models/Contestant';
-import BetSlipView from './BetSlipView.vue';
 
 const marketStore = useMarketStore();
 marketStore.getMarkets();
