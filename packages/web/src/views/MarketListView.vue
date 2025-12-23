@@ -1,12 +1,12 @@
 <template>
-    <section class="bet-list">
+   <section class="market-list">
         <header>
             <h1>Live Bets</h1>
            <segmented-button v-model="selectedOption"
                               :options="options" />
         </header>
 
-        <section class="bets-container">
+      <section class="markets-container">
            <template v-if="selectedOption === 'weekly'">
                 <contestant-market-card v-for="contestant in contestantStore.allContestants"
                                         :contestant-name="contestant.name"
@@ -53,11 +53,8 @@ header {
     gap: var(--space-xl);
     margin-bottom: var(--space-xl);
 }
-.bet-list {
-    margin: var(--space-lg);
-}
 
-.bets-container {
+.markets-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-lg);

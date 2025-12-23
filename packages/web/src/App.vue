@@ -36,6 +36,7 @@ nav {
 
 main {
     grid-area: main;
+    padding: var(--space-xl);
 }
 .modal-overlay {
     position: fixed;
@@ -46,4 +47,5 @@ main {
     align-items: center;
     z-index: 1000;
 }
+
 </style>

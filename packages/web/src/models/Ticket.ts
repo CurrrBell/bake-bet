@@ -11,7 +11,7 @@ export class Ticket extends BetSlip {
     get payout() {
         switch (this.status) {
             case 'pending':
-                return -1
+                return null
             case 'win':
                 return this.potentialPayout;
             case 'loss':
@@ -19,6 +19,20 @@ export class Ticket extends BetSlip {
             case 'push':
             case 'void':
                 return this.stake;
+        }
+    }
+
+    get profit() {
+        switch (this.status) {
+            case 'pending':
+                return null;
+            case 'win':
+                return this.payout! - this.stake;
+            case 'loss':
+                return -this.stake;
+            case 'push':
+            case 'void':
+                return 0;
         }
     }
 }

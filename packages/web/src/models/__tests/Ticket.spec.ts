@@ -10,12 +10,13 @@ describe('Ticket', () => {
         name: 'test',
         type: 'weekly',
         decimalOdds: 0.5,
+        status: 'open'
     };
     const stake = 100;
     const slip = new BetSlip(market, stake);
 
     it.each([
-        ['pending', -1],
+        ['pending', null],
         ['win', slip.potentialPayout],
         ['loss', 0],
         ['push', stake],
