@@ -1,5 +1,5 @@
 @layer components {
-    button {
+    button.primary {
         background: var(--color-primary);
         color: #fff;
         border: none;
@@ -10,11 +10,11 @@
         transition: background-color var(--transition-hover);
     }
 
-    button:hover {
+        button.primary:hover {
         background: var(--color-primary-hover);
     }
 
-    button:active {
+        button.primary:active {
         background-color: var(--color-primary-active);
     }
 
@@ -27,8 +27,8 @@
         background-color: var(--color-primary-soft);
     }
 
-    button:disabled,
-    button[aria-disabled="true"] {
+        button.primary:disabled,
+        button.primary[aria-disabled="true"] {
         background-color: var(--color-primary-disabled);
         color: var(--color-text-disabled);
 
@@ -39,10 +39,11 @@
         opacity: 0.65;
     }
 
-                button:disabled:hover,
-                button:disabled:active {
-                    background-color: var(--color-primary-disabled);
-                }
+        button.primary:disabled:hover,
+        button.primary:disabled:active {
+            background-color: var(--color-primary-disabled);
+        }
+
     .card {
         background: var(--color-surface);
         border-radius: var(--radius-md);
@@ -59,6 +60,21 @@
         color: var(--color-text);
     }
 
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+    
+        input:invalid {
+            border-color: var(--color-error);
+            background-color: rgba(220, 38, 38, 0.1);
+        }
     nav {
         background: var(--color-surface);
         padding: var(--space-md);

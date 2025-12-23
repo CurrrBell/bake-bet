@@ -1,5 +1,5 @@
 <template>
-   <button class="bet-button"
+   <button class="bet-button primary"
             @click="openBetSlip">
         Bet
     </button>

@@ -10,7 +10,8 @@
                 <input v-model="username"
                        label="User Name"
                        placeholder="User Name" />
-                <button type="submit"
+               <button class="primary"
+                        type="submit"
                         :disabled="!username.trim()">Sign In</button>
                 <button class="secondary"
                         @click="continueAsGuest">Continue as Guest</button>
