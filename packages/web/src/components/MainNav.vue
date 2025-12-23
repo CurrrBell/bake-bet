@@ -1,14 +1,17 @@
 <template>
     <nav aria-label="Main Navigation">
         <ul>
-            <li v-for="route in routes">
+           <li v-for="route in visibleRoutes">
                 <router-link :to="route.path">{{ route.name }}</router-link>
             </li>
         </ul>
     </nav>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue';
 import { routes } from '../router';
+
+const visibleRoutes = computed(() => routes.filter((route) => !route.meta?.modal && route.meta?.requiresAuth))
 
 </script>
 <style scoped>
