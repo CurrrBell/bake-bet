@@ -35,7 +35,7 @@ export const routes = [
     },
     {
         path: '/markets',
-        name: 'MarketList',
+        name: 'Markets',
         component: MarketListView,
         meta: { requiresAuth: true }
     },
@@ -56,12 +56,6 @@ export const routes = [
         path: '/tickets',
         name: 'Tickets',
         component: TicketsView,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/leaderboard',
-        name: 'Leaderboard',
-        component: LeaderboardView,
         meta: { requiresAuth: true }
     },
     {
