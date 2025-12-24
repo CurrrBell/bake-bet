@@ -16,9 +16,15 @@ export const useMarketStore = defineStore(('market'), () => {
         return allMarkets.value.filter((market) => market.type === type);
     }
 
+    function getMarket(id: string) {
+        return Promise.resolve()
+            .then(() => markets.find((market) => market.id === id)!);
+    }
+
     return {
         allMarkets,
         getMarkets,
         marketsOfType,
+        getMarket,
     }
 })

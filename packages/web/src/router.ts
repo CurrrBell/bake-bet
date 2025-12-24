@@ -41,8 +41,14 @@ export const routes = [
     {
         path: '/markets/:marketId/bet',
         name: 'BetSlip',
-        component: BetSlipView,
-        meta: { requiresAuth: true },
+        components: {
+            default: MarketListView,
+            modal: BetSlipView,
+        },
+        meta: {
+            requiresAuth: true,
+            modal: true,
+        },
         props: true,
     },
     {

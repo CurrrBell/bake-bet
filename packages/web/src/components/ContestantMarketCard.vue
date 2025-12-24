@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import BetButton from './BetButton.vue';
 import { type Market } from '../models/Market';
-import MarketStatus from './MarketStatus.vue';
 import { fractionalOdds } from '../helpers/OddsFormats';
 
 defineProps<{

@@ -1,5 +1,5 @@
 <template>
-   <button class="bet-button"
+   <button class="bet-button primary"
             @click="openBetSlip">
         Bet
     </button>
@@ -7,11 +7,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-const router = useRouter()
-
 const { marketId } = defineProps<{ marketId: string }>();
 
+const router = useRouter();
+
 function openBetSlip() {
-    router.push(`/markets/${marketId}/bet`);
+    router.push({
+        name: 'BetSlip',
+        params: { marketId },
+    });
 }
 </script>
