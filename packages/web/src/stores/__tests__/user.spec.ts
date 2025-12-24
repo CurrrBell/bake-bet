@@ -10,7 +10,7 @@ describe('user store', () => {
     it('logs in a user asynchronously', async () => {
         const store = useUserStore();
 
-        await store.login('u1', 'Test User', 1000);
+        await store.logIn('u1', 'Test User', 1000);
 
         expect(store.isLoggedIn).toBe(true);
     });
@@ -18,8 +18,8 @@ describe('user store', () => {
     it('logs a user out properly', async () => {
         const store = useUserStore();
 
-        await store.login('u1', 'Test User', 1000);
-        await store.logout();
+        await store.logIn('u1', 'Test User', 1000);
+        await store.logOut();
 
         expect(store.isLoggedIn).toBe(false);
     })

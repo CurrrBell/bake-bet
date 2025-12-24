@@ -26,9 +26,9 @@
                 </template>
                 <template v-slot:menu>
                    <router-link to="/profile">Profile</router-link>
-                   settings
+                   Settings
                     <hr>
-                    log out
+                   <span @click="logOut">Log out</span>
                 </template>
             </bet-bake-menu>
         </div>
@@ -39,8 +39,16 @@ import { storeToRefs } from 'pinia';
 import { useUserStore } from '../stores/user';
 import CurrencyIcon from './CurrencyIcon.vue';
 import BetBakeMenu from './BetBakeMenu.vue';
+import { useRouter } from 'vuetify/lib/composables/router.mjs';
 
-const { user } = storeToRefs(useUserStore());
+const router = useRouter();
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+
+function logOut() {
+    userStore.logOut()
+        .then(() => router?.push('login'))
+}
 
 </script>
 <style scoped>
@@ -60,9 +68,14 @@ ul {
     padding: 0;
     margin: 0;
 }
+
 .main-nav__right {
     display: flex;
     gap: var(--space-lg);
     align-items: center;
+}
+:deep(.bake-bet-menu__popout hr) {
+    margin: 0-0.5rem;
+    color: var(--color-border);
 }
 </style>

@@ -28,16 +28,15 @@ import router from '../router';
 
 const username = ref('');
 
-const { login } = useUserStore();
+const { logIn } = useUserStore();
 
 function loginUser() {
-    login(`user_${Date.now()}`, username.value, 1000)
+    logIn(`user_${Date.now()}`, username.value, 1000)
         .then(() => router.push({ name: 'Home' }));
-    ;
 }
 
 function continueAsGuest() {
-    login(`guest_${Date.now()}`, 'Guest', 1000)
+    logIn(`guest_${Date.now()}`, 'Guest', 1000)
         .then(() => router.push({ name: 'Home' }));
 }
 

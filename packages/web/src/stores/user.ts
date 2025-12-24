@@ -8,12 +8,12 @@ export const useUserStore = defineStore('user', () => {
 
     const isLoggedIn = computed(() => !!user.value?.id);
 
-    async function login(newId: string, newName: string, newBalance: number) {
+    async function logIn(newId: string, newName: string, newBalance: number) {
         Promise.resolve()
             .then(() => user.value = { id: newId, userName: newName, displayName: newName, balance: newBalance, createdAt: Date.now.toString() });
     }
 
-    async function logout() {
+    async function logOut() {
         Promise.resolve()
             .then(() => user.value = null);
     }
@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
     return {
         user,
         isLoggedIn,
-        login,
-        logout
+        logIn,
+        logOut
     }
 });
