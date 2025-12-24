@@ -59,4 +59,7 @@ function select(value: string) {
 .segmented-button__option:active {
     transform: translateY(1px);
 }
+button {
+    text-transform: uppercase;
+}
 </style>

@@ -13,7 +13,7 @@
                 </p>
 
               <div class="market-card__odds">
-                   <bet-button :market-id="market.id" />
+                    <bet-button :market-id="market.id" />
                     <span class="market-card__odds-value">
                         {{ fractionalOdds(market.decimalOdds) }}
                     </span>
@@ -75,16 +75,16 @@ defineProps<{
 .market-card__odds {
     display: flex;
     gap: var(--space-sm);
-        align-items: center;
+    align-items: center;
     }
 
-    .bet-button {
+.bet-button {
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--transition-hover);
-    }
+}
 
-    .contestant-market:hover .bet-button {
+.contestant-market:hover .bet-button {
     opacity: 1;
     visibility: visible;
 }

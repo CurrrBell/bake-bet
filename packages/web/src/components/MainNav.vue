@@ -11,7 +11,7 @@
 import { computed } from 'vue';
 import { routes } from '../router';
 
-const visibleRoutes = computed(() => routes.filter((route) => !route.meta?.modal && route.meta?.requiresAuth))
+const visibleRoutes = computed(() => routes.filter((route) => !route.meta?.modal && route.meta?.requiresAuth));
 
 </script>
 <style scoped>
