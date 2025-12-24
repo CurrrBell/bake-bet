@@ -1,7 +1,8 @@
 
 
 <template>
-    <nav aria-label="Main Navigation">
+   <nav class="main-nav"
+         aria-label="Main Navigation">
         <ul>
            <li>
                 <router-link to="/home">Home</router-link>
@@ -13,10 +14,23 @@
                 <router-link to="/tickets">Tickets</router-link>
             </li>
         </ul>
-       <div>
-            <currency-icon />
-            {{ user.balance }}
-            <router-link to="/profile">Profile</router-link>
+       <div class="main-nav__right">
+           <div>
+                <currency-icon />
+                {{ user.balance }}
+           </div>
+
+            <bet-bake-menu>
+                <template v-slot:trigger="{ toggle }">
+                    <span @click="toggle">{{ user.userName }}</span>
+                </template>
+                <template v-slot:menu>
+                   <router-link to="/profile">Profile</router-link>
+                   settings
+                    <hr>
+                    log out
+                </template>
+            </bet-bake-menu>
         </div>
     </nav>
 </template>
@@ -24,12 +38,13 @@
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '../stores/user';
 import CurrencyIcon from './CurrencyIcon.vue';
+import BetBakeMenu from './BetBakeMenu.vue';
 
 const { user } = storeToRefs(useUserStore());
 
 </script>
 <style scoped>
-nav {
+.main-nav {
     display: flex;
         justify-content: space-between;
     background-color: var(--color-surface);
@@ -44,5 +59,10 @@ ul {
     gap: 1rem;
     padding: 0;
     margin: 0;
+}
+.main-nav__right {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
 }
 </style>
