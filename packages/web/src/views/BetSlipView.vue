@@ -1,29 +1,32 @@
 <template>
    <article class="bet-slip card">
-       <button class="close-button"
-               aria-label="Close"
+        <button class="close-button"
+                aria-label="Close"
                 @click="cancel">
-                <svg viewBox="0 0 24 24"
-                     width="18"
-                     height="18">
-                    <path d="M18 6L6 18M6 6l12 12"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round" />
-                </svg>
-            </button>
-       <header>
+           <svg viewBox="0 0 24 24"
+                 width="18"
+                 height="18">
+                <path d="M18 6L6 18M6 6l12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round" />
+            </svg>
+        </button>
+        <header>
             <h1>{{ market?.name }}</h1>
             <h2>{{ market?.contestant?.name }}</h2>
         </header>
-       <input v-model="stake"
-              type="number"
-               min="1"
-               step="1"
-               inputmode="numeric" />
+       <div class="stake-input">
+            <currency-icon />
+           <input v-model="stake"
+                   type="number"
+                   min="1"
+                   step="1"
+                   inputmode="numeric" />
+       </div>
 
-      <p>at {{ fractionalOdds(market?.decimalOdds ?? 0) }} = {{ slip?.potentialPayout ?? 0 }} <currency-icon /></p>
+      <p>at {{ fractionalOdds(market?.decimalOdds ?? 0) }} = <currency-icon />{{ slip?.potentialPayout ?? 0 }}</p>
         <footer>
             <button @click="cancel">Cancel</button>
             <button class="primary"
@@ -73,7 +76,7 @@ function submitBet() {
 <style scoped>
 .bet-slip {
     position: relative;
-        display: flex;
+    display: flex;
         flex-direction: column;
         gap: var(--space-lg);
     padding: var(--space-xl);
@@ -86,6 +89,7 @@ function submitBet() {
     margin-left: -150px;
 
 }
+
 .close-button {
     position: absolute;
     top: var(--space-xl);
@@ -96,5 +100,10 @@ function submitBet() {
 footer {
     display: flex;
     justify-content: space-between;
+}
+.stake-input {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
 }
 </style>

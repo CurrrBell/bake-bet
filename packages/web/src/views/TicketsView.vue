@@ -2,10 +2,12 @@
     <section class="tickets">
         <header>
             <h1>Tickets</h1>
-            <SegmentedButton v-model="selectedFilter" :options="filters"/>
+           <SegmentedButton v-model="selectedFilter"
+                             :options="filters" />
         </header>
 
-        <bake-bet-table :rows="visibleTickets" :columns="columns"/>
+      <bake-bet-table :rows="visibleTickets"
+                        :columns="columns" />
     </section>
 </template>
 <script setup lang="ts">
@@ -14,7 +16,7 @@ import SegmentedButton from '../components/SegmentedButton.vue';
 import { useTicketStore } from '../stores/ticket';
 import type { Ticket, TicketStatus } from '../models/Ticket';
 import { storeToRefs } from 'pinia';
-import BakeBetTable, { type Column} from '../components/BakeBetTable.vue';
+import BakeBetTable, { type Column } from '../components/BakeBetTable.vue';
 
 const ticketStore = useTicketStore();
 const { allTickets } = storeToRefs(ticketStore);
@@ -39,7 +41,7 @@ const columns = ref<Column<Ticket>[]>([
     {
         key: 'stake',
         label: 'Stake',
-        render: (value, row) => `${row.stake} 🤝`
+        render: (value, row) => `🤝 ${row.stake}`
     },
     {
         key: 'profit',
@@ -56,9 +58,9 @@ const columns = ref<Column<Ticket>[]>([
             }
 
             if (profit > 0) {
-                return `<span class=status--${row.status}>+${profit} 🤝</span>`;
+                return `<span class=status--${row.status}>🤝 +${profit}</span>`;
             } else {
-                return `<span class=status--${row.status}>${profit} 🤝</span>`;
+                return `<span class=status--${row.status}>🤝 ${profit}</span>`;
             }
         }
     },

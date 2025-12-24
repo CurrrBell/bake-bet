@@ -7,7 +7,7 @@
         </header>
 
       <section class="markets-container">
-           <template v-if="selectedOption === 'weekly'">
+            <template v-if="selectedOption === 'weekly'">
                 <contestant-market-card v-for="contestant in contestantStore.allContestants"
                                         :contestant-name="contestant.name"
                                         :markets="marketsForContestant(contestant)" />
