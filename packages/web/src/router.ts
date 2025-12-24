@@ -4,7 +4,6 @@ import { useUserStore } from './stores/user';
 import LoginView from './views/LoginView.vue';
 import HomeView from './views/HomeView.vue';
 import BetSlipView from './views/BetSlipView.vue';
-import LeaderboardView from './views/LeaderboardView.vue';
 import ProfileView from './views/ProfileView.vue';
 import MarketListView from './views/MarketListView.vue';
 import TicketsView from './views/TicketsView.vue';
