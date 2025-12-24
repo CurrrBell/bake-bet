@@ -32,12 +32,12 @@ const { logIn } = useUserStore();
 
 function loginUser() {
     logIn(`user_${Date.now()}`, username.value, 1000)
-        .then(() => router.push({ name: 'Home' }));
+        .then(() => router.push('/home'));
 }
 
 function continueAsGuest() {
     logIn(`guest_${Date.now()}`, 'Guest', 1000)
-        .then(() => router.push({ name: 'Home' }));
+        .then(() => router.push('/home'));
 }
 
 </script>

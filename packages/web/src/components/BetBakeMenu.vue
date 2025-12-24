@@ -15,29 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { onClickOutside } from '@vueuse/core';
+import { ref } from 'vue';
 
 const root = ref<HTMLElement | null>(null);
 const open = ref(false);
+
+onClickOutside(root, () => open.value = false);
 
 function toggle() {
     open.value = !open.value;
 }
 
-function onClickOutside(e: MouseEvent) {
-    if (!root.value) return;
-    if (!root.value.contains(e.target as Node)) {
-        close();
-    }
-}
-
-onMounted(() => {
-    document.addEventListener('click', onClickOutside);
-});
-
-onBeforeUnmount(() => {
-    document.removeEventListener('click', onClickOutside);
-});
 </script>
 
 <style scoped>
