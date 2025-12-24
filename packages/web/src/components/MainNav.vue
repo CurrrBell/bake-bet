@@ -1,21 +1,37 @@
+
+
 <template>
     <nav aria-label="Main Navigation">
         <ul>
-           <li v-for="route in visibleRoutes">
-                <router-link :to="route.path">{{ route.name }}</router-link>
+           <li>
+                <router-link to="/home">Home</router-link>
+            </li>
+            <li>
+                <router-link to="/markets">Markets</router-link>
+            </li>
+            <li>
+                <router-link to="/tickets">Tickets</router-link>
             </li>
         </ul>
+       <div>
+            <currency-icon />
+            {{ user.balance }}
+            <router-link to="/profile">Profile</router-link>
+        </div>
     </nav>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
-import { routes } from '../router';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '../stores/user';
+import CurrencyIcon from './CurrencyIcon.vue';
 
-const visibleRoutes = computed(() => routes.filter((route) => !route.meta?.modal && route.meta?.requiresAuth));
+const { user } = storeToRefs(useUserStore());
 
 </script>
 <style scoped>
 nav {
+    display: flex;
+        justify-content: space-between;
     background-color: var(--color-surface);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     padding: 1rem 1rem;
