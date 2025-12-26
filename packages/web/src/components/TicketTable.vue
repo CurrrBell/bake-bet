@@ -49,3 +49,25 @@
         },
     ]);
 </script>
+<style scoped>
+
+    :deep(.status--pending) {
+        color: var(--color-warning);
+    }
+
+    :deep(.status--win) {
+        color: var(--color-success);
+    }
+
+    :deep(.status--loss) {
+        color: var(--color-error);
+    }
+
+    :deep(.status--push) {
+        color: var(--color-text-muted);
+    }
+
+    :deep(.status--void) {
+        color: var(--color-text-subtle);
+    }
+</style>

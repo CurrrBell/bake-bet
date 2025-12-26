@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
 
     async function logIn(newId: string, newName: string, newBalance: number) {
         Promise.resolve()
-            .then(() => user.value = { id: newId, userName: newName, displayName: newName, balance: newBalance, createdAt: Date.now.toString() });
+            .then(() => user.value = { id: newId, userName: newName, displayName: newName, balance: newBalance, createdAt: Date.now().toString() });
     }
 
     async function logOut() {

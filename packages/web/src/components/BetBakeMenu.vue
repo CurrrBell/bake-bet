@@ -38,7 +38,7 @@ function toggle() {
 .bake-bet-menu__popout {
     position: absolute;
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
         gap: var(--space-sm);
         padding: var(--space-sm);
     right: 0;

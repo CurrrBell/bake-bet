@@ -10,7 +10,7 @@
                 <input v-model="username"
                        label="User Name"
                        placeholder="User Name" />
-               <button class="primary"
+                <button class="primary"
                         type="submit"
                         :disabled="!username.trim()">Sign In</button>
                 <button class="secondary"
