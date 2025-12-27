@@ -1,5 +1,5 @@
 <template>
-    <main-nav v-if="isLoggedIn">nav</main-nav>
+    <main-nav v-if="isSignedIn">nav</main-nav>
     <main>
        <router-view />
 
@@ -23,7 +23,7 @@ const router = useRouter();
 
 const showModal = computed(() => route.meta?.modal === true);
 
-const { isLoggedIn } = storeToRefs(useUserStore());
+const { isSignedIn } = storeToRefs(useUserStore());
 
 function closeModal() {
     router.back();

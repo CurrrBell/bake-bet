@@ -54,7 +54,7 @@ describe('App.vue nav visibility', () => {
     });
 
     it('shows the nav when user is logged in', async () => {
-        await userStore.logIn('u1', 'Test User', 1000);
+        await userStore.signIn('test@test.com', 'password1234');
 
         const wrapper = mount(App, {
             global: {

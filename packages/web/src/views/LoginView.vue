@@ -7,15 +7,25 @@
             </header>
 
             <form @submit.prevent="loginUser">
-                <input v-model="username"
-                       label="User Name"
-                       placeholder="User Name" />
+                <h3>Sign {{ hasAccount ? 'In' : 'Up' }}</h3>
+
+                <input v-model="email"
+                       label="Email"
+                       type="email"
+                       placeholder="Email" />
+
+                <input v-model="password"
+                       label="Password"
+                       type="password"
+                       placeholder="Password" />
+
                 <button class="primary"
                         type="submit"
-                        :disabled="!username.trim()">Sign In</button>
-                <button class="secondary"
-                        @click="continueAsGuest">Continue as Guest</button>
+                        :disabled="!email.trim()">Sign {{ hasAccount ? 'In' : 'Up' }}</button>
             </form>
+
+            <button v-if="hasAccount"
+                    @click="() => hasAccount = false">Sign up</button>
         </div>
     </div>
 
@@ -26,17 +36,16 @@ import { ref } from 'vue';
 import { useUserStore } from '../stores/user';
 import router from '../router';
 
-const username = ref('');
+const email = ref('');
+const password = ref('');
+const hasAccount = ref(true);
 
-const { logIn } = useUserStore();
+const { signIn, signUp } = useUserStore();
 
 function loginUser() {
-    logIn(`user_${Date.now()}`, username.value, 1000)
-        .then(() => router.push('/home'));
-}
+    const auth = hasAccount.value ? signIn : signUp;
 
-function continueAsGuest() {
-    logIn(`guest_${Date.now()}`, 'Guest', 1000)
+    auth(email.value, password.value)
         .then(() => router.push('/home'));
 }
 
