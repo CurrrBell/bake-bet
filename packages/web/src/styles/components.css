@@ -6,7 +6,6 @@
         border-radius: var(--radius-md);
         padding: 0.75rem 1rem;
         font-weight: 600;
-        cursor: pointer;
         transition: background-color var(--transition-hover);
         line-height: 1rem;
     }
@@ -22,6 +21,11 @@
     button.secondary {
         background: transparent;
         border: 1px solid var(--color-primary);
+        border-radius: var(--radius-md);
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            transition: background-color var(--transition-hover);
+            line-height: 1rem;
     }
 
     button.secondary:hover {

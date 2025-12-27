@@ -10,7 +10,7 @@
                 <input v-model="username"
                        label="User Name"
                        placeholder="User Name" />
-               <button class="primary"
+                <button class="primary"
                         type="submit"
                         :disabled="!username.trim()">Sign In</button>
                 <button class="secondary"
@@ -28,17 +28,16 @@ import router from '../router';
 
 const username = ref('');
 
-const { login } = useUserStore();
+const { logIn } = useUserStore();
 
 function loginUser() {
-    login(`user_${Date.now()}`, username.value, 1000)
-        .then(() => router.push({ name: 'Home' }));
-    ;
+    logIn(`user_${Date.now()}`, username.value, 1000)
+        .then(() => router.push('/home'));
 }
 
 function continueAsGuest() {
-    login(`guest_${Date.now()}`, 'Guest', 1000)
-        .then(() => router.push({ name: 'Home' }));
+    logIn(`guest_${Date.now()}`, 'Guest', 1000)
+        .then(() => router.push('/home'));
 }
 
 </script>

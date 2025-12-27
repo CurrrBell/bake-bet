@@ -35,6 +35,10 @@ export class Ticket extends BetSlip {
                 return 0;
         }
     }
+
+    get isSettled() {
+        return this.status !== 'pending' && this.status !== 'void';
+    }
 }
 
 export type TicketStatus = 'pending' | 'win' | 'loss' | 'push' | 'void';
