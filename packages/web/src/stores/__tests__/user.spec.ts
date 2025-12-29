@@ -8,20 +8,20 @@ describe('user store', () => {
         vi.clearAllMocks();
     });
 
-    it('logs in a user asynchronously', async () => {
+    it('signs in a user asynchronously', async () => {
         const store = useUserStore();
 
         await store.signIn('test@test.com', 'password1234');
 
-        expect(store.isSignedIn).toBe(true);
+        expect(store.user).toBeTruthy();
     });
 
-    it('logs a user out properly', async () => {
-
+    it('signs a user out properly', async () => {
         const store = useUserStore();
 
         await store.signIn('test@test.com', 'password1234');
         await store.signOut();
-        expect(store.isSignedIn).toBe(false);
+
+        expect(store.user).toBeFalsy();
     })
 });

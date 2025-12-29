@@ -14,7 +14,7 @@ export const routes = [
         name: 'Login',
         component: LoginView,
         beforeEnter: (to, from, next) => {
-            const userStore = useUserStore()
+            const userStore = useUserStore();
             if (userStore.isSignedIn) {
                 next({ name: 'Home' })
             } else {
@@ -74,14 +74,21 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
     const userStore = useUserStore();
 
+    if (userStore.isCheckingSession) {
+        return undefined; // or return undefined to pause
+    }
+
     if (to.meta.requiresAuth && !userStore.isSignedIn) {
-        next({ name: 'Login' });
-    } else {
-        next();
+        return { name: 'Login' };
+    }
+
+    if (to.name === 'Login' && userStore.isSignedIn) {
+        return { name: 'Home' };
     }
 });
+
 
 export default router;

@@ -1,14 +1,38 @@
-import { StorageSerializers, useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { User } from "../models/User";
 import { supabase } from '../lib/supabase';
+import { getUserProfile } from "../api/userService";
 
 
 export const useUserStore = defineStore('user', () => {
-    const user = useStorage<User>('currentUser', null, undefined, { serializer: StorageSerializers.object });   // declare the serializer here bc useStorage can't infer type with null as a default https://vueuse.org/core/useStorage/#custom-serialization
-
+    const user = ref<User | null>(null);
     const isSignedIn = computed(() => !!user.value?.id);
+    const isCheckingSession = ref(false);
+
+    async function checkSession() {
+        isCheckingSession.value = true;
+
+        const { data } = await supabase.auth.getSession();
+        let session = data.session;
+
+        if (session) {
+            user.value = await getUserProfile(session.user.id);
+            isCheckingSession.value = false;
+        }
+
+        supabase.auth.onAuthStateChange(async (_event, newSession) => {
+            session = newSession;
+
+            if (newSession) {
+                user.value = await getUserProfile(newSession.user.id);
+                isCheckingSession.value = false;
+            } else {
+                user.value = null;
+                isCheckingSession.value = false;
+            }
+        });
+    }
 
     async function signUp(email: string, password: string) {
         const { data, error } = await supabase.auth.signUp({ email, password });
@@ -16,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-            user.value = data.user;
+            user.value = await getUserProfile(data.user!.id!);
         }
     }
 
@@ -26,26 +50,20 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-
-            user.value = {
-                id: data.user.id,
-                userName: data.user.email,
-                displayName: data.user.email,
-                createdAt: data.user.created_at
-            };
+            user.value = await getUserProfile(data.user.id!);
         }
     }
 
-
     async function signOut() {
         await supabase.auth.signOut();
-
         user.value = null;
     }
 
     return {
         user,
         isSignedIn,
+        isCheckingSession,
+        checkSession,
         signOut,
         signUp,
         signIn,
