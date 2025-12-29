@@ -1,6 +1,7 @@
 <template>
-    <div v-if="isCheckingSession">
-        loading...
+    <div v-if="isCheckingSession"
+         class="loading">
+        <loading-spinner />
     </div>
     <template v-else>
         <main-nav v-if="isSignedIn">nav</main-nav>
@@ -8,21 +9,20 @@
             <router-view />
 
             <div v-if="showModal"
-                 class="modal-overlay"
-                 @click.self="closeModal">
+                class="modal-overlay"
+                @click.self="closeModal">
                 <router-view name="modal" />
             </div>
-            </main>
+        </main>
     </template>
-
 </template>
 <script setup lang="ts">
     import MainNav from './components/MainNav.vue';
     import { RouterView, useRoute, useRouter } from 'vue-router';
-
     import { useUserStore } from './stores/user';
     import { storeToRefs } from 'pinia';
     import { computed } from 'vue';
+    import LoadingSpinner from './components/LoadingSpinner.vue';
 
     const route = useRoute();
     const router = useRouter();
@@ -58,4 +58,9 @@
         z-index: 1000;
     }
 
+  .loading {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+    }
 </style>
