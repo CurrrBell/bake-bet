@@ -41,6 +41,10 @@
         color: inherit;
     }
 
+    fieldset {
+        border: none;
+    }
+
     button {
         background: none;
         border: none;

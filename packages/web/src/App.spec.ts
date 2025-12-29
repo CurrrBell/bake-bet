@@ -54,8 +54,6 @@ describe('App.vue nav visibility', () => {
     });
 
     it('shows the nav when user is logged in', async () => {
-        await userStore.signIn('test@test.com', 'password1234');
-
         const wrapper = mount(App, {
             global: {
                 plugins: [pinia, router],
@@ -63,6 +61,8 @@ describe('App.vue nav visibility', () => {
                 stubs: { 'router-view': true }
             },
         });
+
+        await userStore.signIn('test@test.com', 'password1234');
 
         expect(wrapper.find('nav').exists()).toBe(true);
     });
