@@ -45,7 +45,7 @@
     const { user } = storeToRefs(userStore);
 
     function logOut() {
-        userStore.logOut()
+        userStore.signOut()
             .then(() => router?.push('login'))
     }
 

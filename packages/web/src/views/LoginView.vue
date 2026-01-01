@@ -1,59 +1,79 @@
 <template>
-    <div class="login">
-        <div class="card">
-            <header>
-                <h1>BakeBet</h1>
-                <h3>Bet fake currency on The Great British Bake Off</h3>
-            </header>
+<div class="login">
+    <div class="card">
+        <header>
+            <h1>BakeBet</h1>
+            <h3>Bet fake currency on The Great British Bake Off</h3>
+        </header>
 
-            <form @submit.prevent="loginUser">
-                <input v-model="username"
-                       label="User Name"
-                       placeholder="User Name" />
+        <form @submit.prevent="signInUser">
+            <fieldset :disabled="isSigningIn">
+                <h3>Sign {{ hasAccount ? 'In' : 'Up' }}</h3>
+
+                <input v-model="email"
+                       label="Email"
+                       type="email"
+                       placeholder="Email" />
+
+                <input v-model="password"
+                       label="Password"
+                       type="password"
+                       placeholder="Password" />
+
                 <button class="primary"
                         type="submit"
-                        :disabled="!username.trim()">Sign In</button>
-                <button class="secondary"
-                        @click="continueAsGuest">Continue as Guest</button>
-            </form>
-        </div>
-    </div>
+                        :disabled="!email.trim()">{{ buttonText }}</button>
+            </fieldset>
 
+        </form>
+
+        <button v-if="hasAccount"
+                :disabled="isSigningIn"
+                @click="() => hasAccount = false">Sign up</button>
+        </div>
+        </div>
 </template>
 <script setup lang="ts">
 
-import { ref } from 'vue';
-import { useUserStore } from '../stores/user';
-import router from '../router';
+    import { computed, ref } from 'vue';
+    import { useUserStore } from '../stores/user';
+    import router from '../router';
 
-const username = ref('');
+    const email = ref('');
+    const password = ref('');
+    const hasAccount = ref(true);
+    const isSigningIn = ref(false);
 
-const { logIn } = useUserStore();
+    const buttonText = computed(() => {
+        if (isSigningIn.value) return 'Signing In...';
 
-function loginUser() {
-    logIn(`user_${Date.now()}`, username.value, 1000)
-        .then(() => router.push('/home'));
-}
+        return `Sign ${hasAccount ? 'In' : 'Up'}`;
+    })
 
-function continueAsGuest() {
-    logIn(`guest_${Date.now()}`, 'Guest', 1000)
-        .then(() => router.push('/home'));
-}
+    const { signIn, signUp } = useUserStore();
+
+    function signInUser() {
+        isSigningIn.value = true;
+        const auth = hasAccount.value ? signIn : signUp;
+
+        auth(email.value, password.value)
+            .then(() => router.push('/home'));
+    }
 
 </script>
 <style scoped>
-.login {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center
-}
+   .login {
+       height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
 
-.card,
-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
+  .card,
+   fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
 </style>
