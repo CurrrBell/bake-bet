@@ -11,7 +11,8 @@ test:
   stage: test
   before_script:
     - npm install -g pnpm
-    - pnpm install
+    - pnpm -r install
+    - pnpm -r build
   script:
     - pnpm -r test --coverage
   artifacts:
