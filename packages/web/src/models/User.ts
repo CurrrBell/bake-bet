@@ -1,4 +1,4 @@
-import type { DatabaseUser } from "./DatabaseUser";
+import type { DatabaseUser } from "@bake-bet/api";
 
 export interface User {
     id: string;

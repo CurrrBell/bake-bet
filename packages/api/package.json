@@ -1,13 +1,16 @@
 {
-  "name": "@bake-bet/api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.89.0"
-  },
-  "packageManager": "pnpm@10.26.0"
+    "name": "@bake-bet/api",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.89.0"
+    },
+    "devDependencies": {
+        "typescript": "~5.9.3"
+    },
+    "packageManager": "pnpm@10.26.0"
 }

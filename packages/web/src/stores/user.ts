@@ -1,14 +1,17 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import type { User } from "../models/User";
-import { supabase } from '../lib/supabase';
-import { getUserProfile } from "../api/userService";
+import { fromDatabaseUser, type User } from "../models/User";
+import { supabase, getUserProfile } from '@bake-bet/api';
 
 
 export const useUserStore = defineStore('user', () => {
     const user = ref<User | null>(null);
     const isSignedIn = computed(() => !!user.value?.id);
     const isCheckingSession = ref(false);
+
+    async function getUser(id: string) {
+        return fromDatabaseUser(await getUserProfile(id));
+    }
 
     async function checkSession() {
         isCheckingSession.value = true;
@@ -17,7 +20,7 @@ export const useUserStore = defineStore('user', () => {
         let session = data.session;
 
         if (session) {
-            user.value = await getUserProfile(session.user.id);
+            user.value = await getUser(session.user.id);
             isCheckingSession.value = false;
         }
 
@@ -25,7 +28,7 @@ export const useUserStore = defineStore('user', () => {
             session = newSession;
 
             if (newSession) {
-                user.value = await getUserProfile(newSession.user.id);
+                user.value = await getUser(newSession.user.id);
                 isCheckingSession.value = false;
             } else {
                 user.value = null;
@@ -40,7 +43,7 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-            user.value = await getUserProfile(data.user!.id!);
+            user.value = await getUser(data.user!.id!);
         }
     }
 
@@ -50,7 +53,7 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-            user.value = await getUserProfile(data.user.id!);
+            user.value = await getUser(data.user.id!);
         }
     }
 

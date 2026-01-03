@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-vi.mock('./src/lib/supabase.ts', () => {
+vi.mock('@bake-bet/api', () => {
     const mockUser = {
         id: 'u1',
         userName: 'tentbaker',
@@ -34,5 +34,14 @@ vi.mock('./src/lib/supabase.ts', () => {
             },
             from,
         },
+        getUserProfile: vi.fn(() => {
+            return {
+                id: 1,
+                display_name: 'jim',
+                user_name: 'jim1',
+                balance: 0,
+                created_at: 'kek'
+            }
+        })
     };
 })

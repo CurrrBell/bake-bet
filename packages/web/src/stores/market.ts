@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { markets } from "../mocks/Markets";
 import { ref } from "vue";
 import type { Market, MarketType } from "../models/Market";
-import type { Contestant } from "../models/Contestant";
 
 export const useMarketStore = defineStore(('market'), () => {
     const allMarkets = ref<Market[]>([]);

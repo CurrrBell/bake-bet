@@ -12,4 +12,4 @@ export default defineConfig({
             junit: '../../coverage/web-junit.xml'
         }
     }
-})
+});

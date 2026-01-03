@@ -1,5 +1,9 @@
+import { supabase } from "./supabase";
 import type { DatabaseUser } from "./types/DatabaseUser";
+import { getUserProfile } from "./userService";
 
 export {
-    DatabaseUser
-}
+    type DatabaseUser,
+    getUserProfile,
+    supabase,
+};
