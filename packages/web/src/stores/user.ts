@@ -1,35 +1,42 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import type { User } from "../models/User";
-import { supabase } from '../lib/supabase';
-import { getUserProfile } from "../api/userService";
+import { fromDatabaseUser, type User } from "../models/User";
+import { supabase, getUserProfile } from '@bake-bet/api';
 
 
 export const useUserStore = defineStore('user', () => {
     const user = ref<User | null>(null);
     const isSignedIn = computed(() => !!user.value?.id);
-    const isCheckingSession = ref(false);
+    const hasCheckedSession = ref(false);
+
+    async function getUser(id: string) {
+        const user = await getUserProfile(id);
+
+        if (!user) return null;
+
+        return fromDatabaseUser(user);
+    }
 
     async function checkSession() {
-        isCheckingSession.value = true;
 
         const { data } = await supabase.auth.getSession();
         let session = data.session;
 
         if (session) {
-            user.value = await getUserProfile(session.user.id);
-            isCheckingSession.value = false;
+            user.value = await getUser(session.user.id);
         }
+
+        hasCheckedSession.value = true;
 
         supabase.auth.onAuthStateChange(async (_event, newSession) => {
             session = newSession;
 
             if (newSession) {
-                user.value = await getUserProfile(newSession.user.id);
-                isCheckingSession.value = false;
+                user.value = await getUser(newSession.user.id);
+                hasCheckedSession.value = true;
             } else {
                 user.value = null;
-                isCheckingSession.value = false;
+                hasCheckedSession.value = true;
             }
         });
     }
@@ -40,7 +47,7 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-            user.value = await getUserProfile(data.user!.id!);
+            user.value = await getUser(data.user!.id!);
         }
     }
 
@@ -50,7 +57,7 @@ export const useUserStore = defineStore('user', () => {
         if (error) {
             console.error(error);
         } else {
-            user.value = await getUserProfile(data.user.id!);
+            user.value = await getUser(data.user.id!);
         }
     }
 
@@ -62,7 +69,7 @@ export const useUserStore = defineStore('user', () => {
     return {
         user,
         isSignedIn,
-        isCheckingSession,
+        hasCheckedSession,
         checkSession,
         signOut,
         signUp,

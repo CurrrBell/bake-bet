@@ -1,10 +1,12 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
+import { describe, it, expect, beforeEach, beforeAll, vi } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import App from './App.vue';
 import { useUserStore } from './stores/user';
 import MainNav from './components/MainNav.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
+
+import { getUserProfile } from '@bake-bet/api';
 
 describe('App.vue nav visibility', () => {
     let pinia: ReturnType<typeof createPinia>;
@@ -26,6 +28,18 @@ describe('App.vue nav visibility', () => {
                 },
                 meta: { modal: true },
             },
+            {
+                path: '/home',
+                component: { template: '<div />' },
+            },
+            {
+                path: '/markets',
+                component: { template: '<div />' },
+            },
+            {
+                path: '/tickets',
+                component: { template: '<div />' },
+            }
         ],
     });
 
@@ -41,7 +55,7 @@ describe('App.vue nav visibility', () => {
         userStore = useUserStore();
     });
 
-    it('hides the nav when user is not logged in', () => {
+    it('should show a spinner while checking session', () => {
         const wrapper = mount(App, {
             global: {
                 plugins: [pinia, router],
@@ -50,20 +64,42 @@ describe('App.vue nav visibility', () => {
             },
         });
 
-        expect(wrapper.find('nav').exists()).toBe(false);
+        expect(wrapper.find('svg').exists()).toBe(true);
     });
 
-    it('shows the nav when user is logged in', async () => {
-        const wrapper = mount(App, {
-            global: {
-                plugins: [pinia, router],
-                components: { MainNav },
-                stubs: { 'router-view': true }
-            },
+    describe('after session check', () => {
+
+        it('hides the nav when user is not logged in', () => {
+            vi.mocked(getUserProfile).mockResolvedValueOnce(null);
+            userStore.checkSession();
+
+            const wrapper = mount(App, {
+                global: {
+                    plugins: [pinia, router],
+                    components: { MainNav },
+                    stubs: { 'router-view': true },
+                },
+            });
+
+            expect(wrapper.find('nav').exists()).toBe(false);
         });
 
-        await userStore.signIn('test@test.com', 'password1234');
+        it('shows the nav when user is logged in', async () => {
+            userStore.checkSession();
 
-        expect(wrapper.find('nav').exists()).toBe(true);
+            const wrapper = mount(App, {
+                global: {
+                    plugins: [pinia, router],
+                    components: { MainNav },
+                    stubs: { 'router-view': true }
+                },
+            });
+
+            await userStore.signIn('test@test.com', 'password1234');
+
+            expect(wrapper.find('nav').exists()).toBe(true);
+        });
     });
+
+
 });
