@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 import type { DatabaseUser } from "./types/DatabaseUser";
 
-export async function getUserProfile(id: string): Promise<DatabaseUser> {
+export async function getUserProfile(id: string): Promise<DatabaseUser | null> {
     const { data, error } = await supabase
         .from('users')
         .select('*')

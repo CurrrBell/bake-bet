@@ -15,13 +15,14 @@
     <div class="main-nav__right">
         <div>
             <currency-icon />
-            {{ user.balance }}
+                {{ user?.balance }}
+   
         </div>
 
         <bet-bake-menu>
             <template v-slot:trigger="{ toggle }">
                 <button class="secondary"
-                        @click="toggle">{{ user.userName }}</button>
+                            @click="toggle">{{ user?.userName }}</button>
                 </template>
                 <template v-slot:menu>
                     <router-link to="/profile">Profile</router-link>

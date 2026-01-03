@@ -13,7 +13,7 @@ export const routes = [
         path: '/login',
         name: 'Login',
         component: LoginView,
-        beforeEnter: (to, from, next) => {
+        beforeEnter: (_to: any, _from: any, next: (arg0?: { name: string; } | undefined) => void) => {
             const userStore = useUserStore();
             if (userStore.isSignedIn) {
                 next({ name: 'Home' })

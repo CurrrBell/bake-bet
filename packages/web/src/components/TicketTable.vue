@@ -13,23 +13,23 @@
         {
             key: 'market',
             label: 'Contestant',
-            render: (value, row) => row.market.contestant?.name ?? '-'
+            render: (_, row) => row.market.contestant?.name ?? '-'
         },
         {
             key: 'market',
             label: 'Market',
-            render: (value, row) => row.market.name
+            render: (_, row) => row.market.name
         },
 
         {
             key: 'stake',
             label: 'Stake',
-            render: (value, row) => `🤝 ${row.stake}`
+            render: (_, row) => `🤝 ${row.stake}`
         },
         {
             key: 'profit',
             label: 'Profit',
-            render: (value, row) => {
+            render: (_, row) => {
                 const profit = row.profit;
 
                 if (row.status === 'pending') {

@@ -10,7 +10,11 @@ export const useUserStore = defineStore('user', () => {
     const hasCheckedSession = ref(false);
 
     async function getUser(id: string) {
-        return fromDatabaseUser(await getUserProfile(id));
+        const user = await getUserProfile(id);
+
+        if (!user) return null;
+
+        return fromDatabaseUser(user);
     }
 
     async function checkSession() {

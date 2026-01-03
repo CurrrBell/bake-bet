@@ -9,6 +9,7 @@ describe('BetSlip', () => {
             name: 'test',
             type: 'weekly',
             decimalOdds: 0.5,
+            status: 'closed'
         };
 
         const stake = 100;

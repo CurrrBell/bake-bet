@@ -1,27 +1,27 @@
 <template>
     <header>
-        <h1>{{ user.userName }}</h1>
-        <h4>Joined {{ user.createdAt }}</h4>
+        <h1>{{ user?.userName }}</h1>
+        <h4>Joined {{ user?.createdAt }}</h4>
     </header>
-    
-    <h1><currency-icon /> {{ user.balance }}</h1>
-    
+
+    <h1><currency-icon /> {{ user?.balance }}</h1>
+
     <section>
         <h1>Stats</h1>
         <p>Tickets: {{ ticketStore.allTickets.length }}</p>
         <p>Win rate: {{ winRate }}%</p>
         <p>Net: \\todo//</p>
     </section>
-    
+
     <section>
         <h1>Recent Tickets</h1>
         <ticket-table :tickets="recentTickets" />
     </section>
-    
+
     <section>
         <h1>Preferences</h1>
         <p>Odds format: Fractional</p>
-    
+
     </section>
 
 </template>
