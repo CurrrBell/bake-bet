@@ -74,11 +74,11 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
     const userStore = useUserStore();
 
-    if (userStore.isCheckingSession) {
-        return undefined; // or return undefined to pause
+    if (!userStore.hasCheckedSession) {
+        await userStore.checkSession();
     }
 
     if (to.meta.requiresAuth && !userStore.isSignedIn) {

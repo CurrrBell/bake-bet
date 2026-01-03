@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isCheckingSession"
+    <div v-if="!hasCheckedSession"
          class="loading">
         <loading-spinner />
     </div>
@@ -30,9 +30,7 @@
     const showModal = computed(() => route.meta?.modal === true);
 
     const userStore = useUserStore();
-    const { isSignedIn, isCheckingSession } = storeToRefs(userStore);
-
-    userStore.checkSession();
+const { isSignedIn, hasCheckedSession } = storeToRefs(userStore);
 
     function closeModal() {
         router.back();

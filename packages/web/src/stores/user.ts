@@ -7,32 +7,32 @@ import { supabase, getUserProfile } from '@bake-bet/api';
 export const useUserStore = defineStore('user', () => {
     const user = ref<User | null>(null);
     const isSignedIn = computed(() => !!user.value?.id);
-    const isCheckingSession = ref(false);
+    const hasCheckedSession = ref(false);
 
     async function getUser(id: string) {
         return fromDatabaseUser(await getUserProfile(id));
     }
 
     async function checkSession() {
-        isCheckingSession.value = true;
 
         const { data } = await supabase.auth.getSession();
         let session = data.session;
 
         if (session) {
             user.value = await getUser(session.user.id);
-            isCheckingSession.value = false;
         }
+
+        hasCheckedSession.value = true;
 
         supabase.auth.onAuthStateChange(async (_event, newSession) => {
             session = newSession;
 
             if (newSession) {
                 user.value = await getUser(newSession.user.id);
-                isCheckingSession.value = false;
+                hasCheckedSession.value = true;
             } else {
                 user.value = null;
-                isCheckingSession.value = false;
+                hasCheckedSession.value = true;
             }
         });
     }
@@ -65,7 +65,7 @@ export const useUserStore = defineStore('user', () => {
     return {
         user,
         isSignedIn,
-        isCheckingSession,
+        hasCheckedSession,
         checkSession,
         signOut,
         signUp,
